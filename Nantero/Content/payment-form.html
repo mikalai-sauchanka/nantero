@@ -1,0 +1,85 @@
+﻿<div class="form-group">
+    <select class="form-control" data-ng-model="paymentData.bearer">
+        <option data-ng-repeat="pm in paymentMethodEnum" value="{{pm}}">{{paymentMethodNames[pm]}}</option>
+    </select>
+</div>
+
+<!-- The abstraction of payment methods starts to leak here (hardcoded strings). We'll improve this soon,
+     but of course a direct debit form is different from a credit card form -->
+<div class="payment-elv" data-ng-show="paymentData.bearer=='Debit:Paymill'|| paymentData.bearer=='Debit:PayOne'">
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <label for="accountHolder" class="sr-only control-label">Account Holder</label>
+            <input data-ng-model="paymentData.accountHolder" required id="accountHolder" name="accountHolder" type="text" class="form-control" placeholder="Account Holder" />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label for="accountNumber" class="sr-only control-label">Account Number</label>
+            <input data-ng-model="paymentData.bankAccountNumber" required id="accountNumber" name="accountNumber" maxlength="10" type="text" class="form-control" placeholder="Account Number" />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label for="bankRoutingCode" class="sr-only control-label">Bank Routing Code</label>
+            <input data-ng-model="paymentData.bankRoutingCode" required id="bankRoutingCode" name="bankRoutingCode" maxlength="8" type="text" class="form-control" placeholder="Bank Routing Code" />
+        </div>
+    </div>
+</div>
+
+<div class="payment-cc" data-ng-show="paymentData.bearer=='CreditCard:Paymill' || paymentData.bearer=='CreditCard:PayOne' ">
+    <div class="row">
+        <!-- Note that the input fields don't have a 'name' set, rendering it impossible for the browser
+        to post these fields even if something went wrong in our first line of defense of not having
+        an action on the form. -->
+        <div class="form-group col-sm-12">
+            <label for="email" class="sr-only control-label">Card Holder</label>
+            <input data-ng-model="paymentData.cardHolder" required type="text" class="form-control" id="cardholder" placeholder="Card Holder" />
+        </div>
+
+        <div class="form-group col-xs-8 col-sm-4">
+            <label for="ccno" class="sr-only control-label">Credit Card Number</label>
+            <input data-ng-model="paymentData.cardNumber" required maxlength="16" type="text" class="form-control" id="ccno" placeholder="Credit Card Number" />
+        </div>
+
+        <div class="form-group col-xs-4 col-sm-2">
+            <label for="cvc" class="sr-only control-label">CVC</label>
+            <input data-ng-model="paymentData.cvc" maxlength="3" required type="text" class="form-control" id="cvc" placeholder="CVC" />
+        </div>
+
+        <div class="col-xs-4 col-sm-2">
+            <label class="col-sm-2 control-label">Valid Through</label>
+        </div>
+
+        <div class="col-xs-4 col-sm-2">
+            <label for="expiryMonth" class="sr-only control-label">Expiry Month</label>
+            <select data-ng-model="paymentData.expiryMonth" class="form-control col-lg-4" id="expiryMonth">
+                <option value="" disabled selected>MM</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+
+        <div class="col-xs-4 col-sm-2">
+            <label for="expiryYear" class="sr-only control-label">Expiry Year</label>
+            <select data-ng-model="paymentData.expiryYear" class="form-control" id="expiryYear">
+                <option value="" disabled selected>YYYY</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+    </div>
+</div>

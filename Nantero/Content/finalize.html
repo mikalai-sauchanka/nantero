@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <title>Itero.JS Sample</title>
+    <!-- This sample uses angularjs and bootstrap, but you don't have to -- itero.js has no external dependencies, except 
+    for those inherited from payment providers. It will load those files asynchronously and only if needed. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <link rel="stylesheet" href="styles/iterojs.css" />
+    <script type="text/javascript" src="lib/ba-debug.min.js"></script>
+    <script type="text/javascript" src="http://itero.demo.pactas.com/selfService/iterojs"></script>
+    <script type="text/javascript" src="/scripts/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-modal.js"></script>
+    <script type="text/javascript">
+        IteroJS.baseUrl = "http://itero.demo.pactas.com/api/v1/";
+
+        var FinalizeController = function ($scope, $http, $modal) {
+            var self = this;
+            IteroJS.finalize(function (result) {
+                $scope.$apply(function () {
+                    $scope.paymentCompleted = true;
+                    if (result) {
+                        $scope.isSuccess = true;
+                    }
+                });
+            }, function (error) {
+                $scope.$apply(function () {
+                    $scope.paymentCompleted = true;
+                    $scope.isError = true;
+                });
+            });
+        };
+
+        // declare the angular module. This is required for dependency injection
+        angular.module('iteroAngular', ['ui.bootstrap.modal']);
+    </script>
+</head>
+<body data-ng-app="iteroAngular" id="ng-app">
+    <div data-ng-controller="FinalizeController">
+        <!-- show a waiting message and a spinner until the operation has completed -->
+        <div data-ng-hide="paymentCompleted" class="text-center" style="font-size: 36px; padding: 50px;" data-ng-cloak>
+            <div class="loading"></div>Please Wait&hellip;
+        </div>
+
+        <!-- show a success message on success -->
+        <div data-ng-show="isSuccess" style="text-align: center;" data-ng-cloak>
+            <h1>Signup Successful!</h1>
+            <p>Thanks for signing up!</p>
+        </div>
+
+        <!-- ... and an error message on error -->
+        <div data-ng-show="isError" class="alert alert-danger" data-ng-cloak>
+            <h4>Payment Error</h4>
+            An error has occurred during the payment. Please <a href="signup.html">start over</a>.
+        </div>
+    </div>
+</body>
+</html>

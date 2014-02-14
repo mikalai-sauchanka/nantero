@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8ADD1632-B84B-4B90-863C-E8F753AD4F57}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pactas.SDK</RootNamespace>
+    <AssemblyName>Pactas.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsContainerAnalysis>False</CodeContractsContainerAnalysis>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsInferRequires>False</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestEnsures>False</CodeContractsSuggestEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsDisjunctiveRequires>False</CodeContractsDisjunctiveRequires>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigurationProfile.cs" />
+    <Compile Include="DTO\AccountSettingsDTO.cs" />
+    <Compile Include="DTO\AvailablePaymentMethodDTO.cs" />
+    <Compile Include="DTO\BillingSettingsDTO.cs" />
+    <Compile Include="DTO\CalcBilledUntilDTO.cs" />
+    <Compile Include="DTO\BackupSettingsDTO.cs" />
+    <Compile Include="DTO\ComponentDTO.cs" />
+    <Compile Include="DTO\ComponentSubscriptionDTO.cs" />
+    <Compile Include="DTO\ComponentTypeDTO.cs" />
+    <Compile Include="DTO\ContractOrderDTO.cs" />
+    <Compile Include="DTO\ContractDTO.cs" />
+    <Compile Include="DTO\ContractPaymentDTO.cs" />
+    <Compile Include="DTO\ContractRiskDTO.cs" />
+    <Compile Include="DTO\ContractTerminationDTO.cs" />
+    <Compile Include="DTO\ContractUpgradeDTO.cs" />
+    <Compile Include="DTO\DunningDTO.cs" />
+    <Compile Include="DTO\EscalationChecksDTO.cs" />
+    <Compile Include="DTO\InvoiceBuilderDTO.cs" />
+    <Compile Include="DTO\InvoicePreviewDTO.cs" />
+    <Compile Include="DTO\LocalizableString.cs" />
+    <Compile Include="DTO\PasswordResetDTO.cs" />
+    <Compile Include="DTO\PaymentEscalationProcessDTO.cs" />
+    <Compile Include="DTO\PaymentProviderWarningDTO.cs" />
+    <Compile Include="DTO\ProAndEpilogueDTO.cs" />
+    <Compile Include="DTO\SelfServiceSettingsDTO.cs" />
+    <Compile Include="DTO\CountryDTO.cs" />
+    <Compile Include="DTO\DashboardDTOs.cs" />
+    <Compile Include="DTO\EmailTemplateDTO.cs" />
+    <Compile Include="DTO\FakeTimeSettingsDTO.cs" />
+    <Compile Include="DTO\InvoiceDraftDTO.cs" />
+    <Compile Include="DTO\DocumentTemplateDTO.cs" />
+    <Compile Include="DTO\FileDownloadLinkDTO.cs" />
+    <Compile Include="DTO\OAuthClientDTO.cs" />
+    <Compile Include="DTO\PaymentBearerDTO.cs" />
+    <Compile Include="DTO\PaymentMethodDTO.cs" />
+    <Compile Include="DTO\PaymentTransactionDTO.cs" />
+    <Compile Include="DTO\HookDTO.cs" />
+    <Compile Include="DTO\MeteredUsageDTO.cs" />
+    <Compile Include="DTO\SelfServiceTokenDTO.cs" />
+    <Compile Include="DTO\SelfService\DTOs.cs" />
+    <Compile Include="DTO\SetTrialEndDTO.cs" />
+    <Compile Include="DTO\SkrillTransactionWebhookDTO.cs" />
+    <Compile Include="DTO\PaypalTransactionWebhookDTO.cs" />
+    <Compile Include="DTO\LedgerEntryDTO.cs" />
+    <Compile Include="DTO\PaymentProviderSettingsDTO.cs" />
+    <Compile Include="DTO\PDFTemplateDTO.cs" />
+    <Compile Include="DTO\Lists.cs" />
+    <Compile Include="DTO\FileMetadataDTO.cs" />
+    <Compile Include="DTO\FreeQuotaDescriptorDTO.cs" />
+    <Compile Include="DTO\PasswordSettingsDTO.cs" />
+    <Compile Include="DTO\PlanDTO.cs" />
+    <Compile Include="DTO\PlanGroupDTO.cs" />
+    <Compile Include="DTO\PlanVariantDTO.cs" />
+    <Compile Include="DTO\ProductInfoDTO.cs" />
+    <Compile Include="DTO\Salutation.cs" />
+    <Compile Include="DTO\SequenceSettingsDTO.cs" />
+    <Compile Include="DTO\AccountSetupDTO.cs" />
+    <Compile Include="DTO\SignupDTO.cs" />
+    <Compile Include="DTO\SimulationParamsDTO.cs" />
+    <Compile Include="DTO\ScaleDTOs.cs" />
+    <Compile Include="DTO\TaxPolicyDTO.cs" />
+    <Compile Include="DTO\UserInformationDTO.cs" />
+    <Compile Include="DTO\InvoiceDTO.cs" />
+    <Compile Include="DTO\AddressDTO.cs" />
+    <Compile Include="DTO\CompanyInformationDTO.cs" />
+    <Compile Include="DTO\CustomerDTO.cs" />
+    <Compile Include="DTO\Enums.cs" />
+    <Compile Include="DTO\VatDescriptorDTO.cs" />
+    <Compile Include="DTO\_ApiResult.cs" />
+    <Compile Include="DTO\LineItemDTO.cs" />
+    <Compile Include="RestClient.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PactasApi.cs" />
+    <Compile Include="Services\SelfServiceTokenService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

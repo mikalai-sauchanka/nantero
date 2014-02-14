@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <title>Itero.JS Sample</title>
+    <!-- This sample uses angularjs and bootstrap, but you don't have to -- itero.js has no external dependencies, except 
+    for certain payment providers. It will load those files asynchronously and only if needed. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <link rel="stylesheet" href="styles/iterojs.css" />
+    <script type="text/javascript" src="lib/ba-debug.min.js"></script>
+    <script type="text/javascript" src="http://itero.demo.pactas.com/selfService/iterojs"></script>
+</head>
+<body data-ng-app="iteroAngular" id="ng-app">
+    <script type="text/ng-template" id="cancel-dialog.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="close()" aria-hidden="true">&times;</button>
+            <h4>Cancel Plan</h4>
+        </div>
+        <div class="modal-body">
+            If you cancel the contract now (or until {{contract.LastPossibleCancellationDate | date:"yyyy-MM-dd HH:mm"}}), it will<br />
+            <strong>end at {{contract.EndDateIfCancelledNow | date:"yyyy-MM-dd HH:mm"}}</strong>.
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-ng-click="cancelContract()">Cancel Plan</button>
+            <button type="button" data-ng-click="close()" class="btn">Close</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="change-plan-dialog.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="close()" aria-hidden="true">&times;</button>
+            <h4>Change Plan</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Plan</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" data-ng-model="newPlanId">
+                            <option value=""></option>
+                            <option data-ng-repeat="plan in productInfo.Plans" value="{{plan.Id}}">
+                                {{plan.Name._c}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Payment Interval</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" data-ng-model="selectedPlanVariantId" name="selectedPlanVariantId" data-ng-disabled="!newPlanId">
+                            <option value=""></option>
+                            <option data-ng-repeat="planVariant in productInfo.PlanVariants | filter:{PlanId:newPlanId}" value="{{planVariant.Id}}">
+                                {{planVariant.RecurringFee}} every {{planVariant.FeePeriod.Quantity}} {{planVariant.FeePeriod.Unit}}(s)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <p class="muted">
+                    The new plan will be billed immediately. Your current plan will be prorated and counted against the new total.
+                </p>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-ng-click="changePlan()" data-ng-disabled="!selectedPlanVariantId">
+                Change Plan
+            </button>
+            <button type="button" data-ng-click="close()" class="btn">Close</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="change-payment-method.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="cancel()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Change Payment Method</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div data-ng-include src="'payment-form.html'"></div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-ng-click="proceed()" class="btn btn-primary">Continue</button>
+            <button type="button" data-ng-click="cancel()" class="btn">Cancel</button>
+        </div>
+    </script> 
+
+    <div class="container" data-ng-controller="AccountController">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <h2>{{plan.Customer.FirstName}} {{plan.Customer.LastName}}<span class="small">{{plan.Customer.CompanyName}}</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <h3>Current Plan</h3>
+                <h4>{{plan.CurrentPlan.PlanName}}</h4>
+                <div>
+                    <small>Next Billing: <abbr title="{{plan.Contract.NextBillingDate}}">{{plan.Contract.NextBillingDate |  date:"yyyy-MM-dd HH:mm"}}</abbr></small>
+                </div>
+                <div class="clearfix" style="margin: 10px 0;"></div>
+                
+                <button data-ng-click="cancelPlanDialog()" class="btn btn-danger">Cancel Plan</button>
+                <button data-ng-click="changePlanDialog()" class="btn btn-info">Change Plan</button>
+
+                <div class="clearfix" style="margin: 10px 0;"></div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <table class="table table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Add-On</th>
+                            <th>Memo</th>
+                            <th>Amount</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="subscription in plan.ComponentsSubscriptions">
+                            <td>{{subscription.ComponentName}}</td>
+                            <td>{{subscription.Memo}}</td>
+                            <td>{{subscription.Amount}}</td>
+                            <td>{{subscription.StartDate | date:"yyyy-MM-dd HH:mm"}}</td>
+                            <td>{{subscription.EndDate | date:"yyyy-MM-dd HH:mm"}}</td>
+                        </tr>
+                        <tr data-ng-hide="plan.ComponentsSubscriptions">
+                            <td colspan="5" style="text-align: center;">You haven't booked any additional components</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <h3>Current Balance</h3>
+                <div class="widget-balance">
+                    <span data-ng-class="{'text-danger' : plan.Contract.Balance > 0, 'text-success' : plan.Contract.Balance <= 0 }" style="font-weight: 600;">{{plan.Contract.Currency}} {{plan.Contract.Balance || 0}}</span> (amount due)
+                </div>
+                <small>This amount might be billed immediately if you change your method of payment.</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <h3>Payment Info</h3>
+
+                <!-- TODO: Display other payment methods, hide this div if payment method isn't credit card (how to find that out?) -->
+                <div data-ng-show="plan.Contract.PaymentBearer.Type!='BankAccount'">
+                    <h5 style="text-transform: capitalize">{{plan.Contract.PaymentBearer.CardType}}</h5>
+                    {{plan.Contract.PaymentBearer.Holder}}<br />
+                    **** **** **** {{plan.Contract.PaymentBearer.Last4}}<br />
+                    Valid {{plan.Contract.PaymentBearer.ExpiryMonth}} / {{plan.Contract.PaymentBearer.ExpiryYear}}<br />
+                </div>
+
+                <div data-ng-show="plan.Contract.PaymentBearer.Type=='BankAccount'">
+                    {{plan.Contract.PaymentBearer.Holder}}<br />
+                    Account No. {{plan.Contract.PaymentBearer.Account}}<br/>
+                    Bank Routing Code: {{plan.Contract.PaymentBearer.Code}}<br/>
+                </div>
+
+                <!-- TODO: How to determine this? -->
+                <!--<div class="alert alert-danger">
+                    <span class="glyphicon glyphicon-warning-sign"></span> This payment method is currently blocked, last transaction was unsuccessful!
+                </div>-->
+
+                <!-- TODO: Are there any cases where changing the payment method doesn't make sense or is not allowed? -->
+                <button type="button" class="btn btn-info" data-ng-click="changePaymentMethod()">Change</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <h3>Last Invoices</h3>
+
+                <table class="table table-condensed table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Invoice No.</th>
+                            <th>Invoice Date</th>
+                            <th class="text-right">Due Amount</th>
+                            <th>Status</th>
+                            <th>D/L</th>
+                        </tr>
+                    </thead>
+                    <tr data-ng-repeat="invoice in plan.RecentInvoices">
+                        <td>{{invoice.InvoiceNumber}}</td>
+                        <td>{{invoice.InvoiceDate | date:"yyyy-MM-dd"}}</td>
+                        <td class="text-right">{{plan.Contract.Currency}} {{invoice.GrossTotal}}</td>
+                        <td data-ng-class="{ 'text-danger' : invoice.Status == 'Unpaid' }">{{invoice.Status}}</td>
+                        <td><a ng-href="{{downloadUrl(invoice.Id)}}">PDF</a></td>
+                    </tr>
+                    <!--<tr>
+                        <td colspan="5" style="text-align: center;">
+                            <a href="#">more</a>
+                        </td>
+                    </tr>-->
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span style="float: right;">
+                <input type="checkbox" data-ng-model="developerMode" /> show developer info
+            </span>
+            <div class="clearfix"></div>
+        </div>
+
+        <div data-ng-show="developerMode" class="ng-cloak">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>JSON</h2>
+                    <code>$scope.plan</code>
+                    <pre>{{plan | json}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2013 &ndash; 2014 Pactas GmbH, Frankfurt am Main</p>
+    </div>
+
+    <script type="text/javascript" src="/scripts/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-ui-modal.js"></script>
+    <script type="text/javascript" src="itero-account.js"></script>
+</body>
+</html>
