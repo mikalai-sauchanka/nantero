@@ -120,6 +120,9 @@ var AccountController = function ($scope, $http, $modal) {
                 controller: ChangePaymentMethodController,
                 windowClass: "fade in",
                 resolve: {
+                    onClose: function () {
+                        return function () { };
+                    },
                     iteroJS: function () { return iteroJSCPM; },
                     token: function() { return config.token; }
                 }
