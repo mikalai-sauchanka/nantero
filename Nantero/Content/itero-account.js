@@ -24,6 +24,7 @@ var ChangePaymentMethodController = function ($scope, $modalInstance, token, ite
             $modalInstance.close('done');
         });
     }
+
     $scope.close = function () { $modalInstance.dismiss('close'); onClose(); }
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -47,9 +48,11 @@ var CancelController = function ($scope, $modalInstance, contract, iteroJS) {
 var ChangePlanController = function ($scope, $modalInstance, $http, productInfo) {
     $scope.close = function () { $modalInstance.dismiss('cancel'); }
     $scope.productInfo = productInfo;
-    $scope.changePlan = function ()  {
-        console.log("upgrading to: ", $scope.selectedPlanVariantId);
-        $http.post("/upgrade", { targetPlanVariantId: $scope.selectedPlanVariantId }).success(function (data) {
+    $scope.dto = { targetPlanVariantId : "" };
+    $scope.changePlan = function () {
+        if (!$scope.dto.targetPlanVariantId)
+            return;
+        $http.post("/upgrade", $scope.dto).success(function (data) {
             var iteroUpgrade = new IteroJS.Upgrade();
             var orderId = data.Id;
             // Trigger a synchronous payment at pactas. The callback will be invoked once the payment has finished

@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Payment Interval</label>
                     <div class="col-sm-8">
-                        <select class="form-control" data-ng-model="selectedPlanVariantId" name="selectedPlanVariantId" data-ng-disabled="!newPlanId">
+                        <select class="form-control" data-ng-model="dto.targetPlanVariantId" name="selectedPlanVariantId" data-ng-disabled="!newPlanId">
                             <option value=""></option>
                             <option data-ng-repeat="planVariant in productInfo.PlanVariants | filter:{PlanId:newPlanId}" value="{{planVariant.Id}}">
                                 {{planVariant.RecurringFee}} every {{planVariant.FeePeriod.Quantity}} {{planVariant.FeePeriod.Unit}}(s)
@@ -63,7 +63,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" data-ng-click="changePlan()" data-ng-disabled="!selectedPlanVariantId">
+            <button class="btn btn-primary" data-ng-click="changePlan()" data-ng-disabled="!dto.targetPlanVariantId">
                 Change Plan
             </button>
             <button type="button" data-ng-click="close()" class="btn">Close</button>
