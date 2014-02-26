@@ -25,7 +25,8 @@ var SignupController = function ($scope, $http, $modal) {
     $scope.paymentMethodNames = {
         "CreditCard:Paymill": "Credit Card", "Debit:Paymill": "Direct Debit", "Skrill": "Skrill",
         "PayPal": "PayPal", "CreditCard:PayOne": "Credit Card", "Debit:PayOne": "Direct Debit",
-        "None:None" : "None"
+        "CreditCard:FakeProvider": "Credit Card", "Debit:FakeProvider": "Direct Debit", "FakePSP" : "Fake Provider",
+        "None:None": "None", "InvoicePayment" : "Invoice"
     };
 
     // The signup method that is called when the user submits the form

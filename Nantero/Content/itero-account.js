@@ -12,7 +12,8 @@ var ChangePaymentMethodController = function ($scope, $modalInstance, token, ite
     $scope.paymentMethodNames = {
         "CreditCard:Paymill": "Credit Card", "Debit:Paymill": "Direct Debit", "Skrill": "Skrill",
         "PayPal": "PayPal", "CreditCard:PayOne": "Credit Card", "Debit:PayOne": "Direct Debit",
-        "None:None": "None"
+        "CreditCard:FakeProvider": "Credit Card", "Debit:FakeProvider": "Direct Debit", "FakePSP" : "Fake Provider",
+        "None:None": "None", "InvoicePayment" : "Invoice"
     };
 
     $scope.proceed = function () {
