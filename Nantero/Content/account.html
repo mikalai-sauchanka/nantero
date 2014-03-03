@@ -86,6 +86,22 @@
         </div>
     </script> 
 
+    <script type="text/ng-template" id="change-customer-data.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-ng-click="cancel()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Change Personal Data</h4>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+                <div data-ng-include src="'customer-form.html'"></div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-ng-click="proceed()" class="btn btn-primary">Continue</button>
+            <button type="button" data-ng-click="cancel()" class="btn">Cancel</button>
+        </div>
+    </script> 
+
     <div class="container" data-ng-controller="AccountController">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">

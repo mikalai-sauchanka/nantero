@@ -1,0 +1,63 @@
+﻿<div id="user-inner" style="margin-top:20px;">
+    <div class="row">
+        <div class="col-xs-6 form-group">
+            <label class="control-label">First Name</label>
+            <input type="text" class="form-control" required ng-model="customer.FirstName" placeholder="First Name" />
+        </div>
+        <div class="col-xs-6 form-group">
+            <label class="control-label">Last Name</label>
+            <input type="text" class="form-control" required ng-model="customer.LastName" placeholder="Last Name" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">
+            E-Mail</label>
+        <div class="controls">
+            <input type="email" class="form-control" ng-model="customer.EmailAddress" placeholder="E-Mail" />
+        </div>
+    </div>
+</div>
+<div id="company-inner" style="margin-top:20px;">
+    <div class="form-group">
+        <label class="control-label">Company Name</label>
+        <input type="text" class="form-control" ng-model="customer.CompanyName" placeholder="Company Name" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Vat Id</label>
+        <input type="text" class="form-control" ng-model="customer.VatId" placeholder="Vat Id" />
+    </div>
+</div>
+<div class="pac-group-subtitle">
+    <i class="icon icon-maps"></i>Adresse</div>
+<div id="address-inner" style="margin-top:20px;">
+    <div class="form-group ">
+        <label class="control-label">Addition to Address</label>
+        <input type="text" class="form-control" ng-model="customer.Address.AddressLine1" placeholder="Line 1" />
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" ng-model="customer.Address.AddressLine2" placeholder="Line 2" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Street</label>
+        <div class="row">
+            <div class="col-xs-8">
+                <input type="text" class="form-control" ng-model="customer.Address.Street" placeholder="Street" />
+            </div>
+            <div class="col-xs-4">
+                <input type="text" class="form-control input-mini" ng-model="customer.Address.HouseNumber" placeholder="Number" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">
+            City</label>
+        <div class="row">
+            <div class="col-xs-4">
+                <input type="text" class="form-control input-mini" ng-model="customer.Address.PostalCode" placeholder="Postal Code" />
+            </div>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" ng-model="customer.Address.City" placeholder="City" />
+            </div>
+        </div>
+    </div>
+</div>

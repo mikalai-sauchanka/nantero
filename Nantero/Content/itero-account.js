@@ -66,6 +66,19 @@ var ChangePlanController = function ($scope, $modalInstance, $http, productInfo)
     }
 }
 
+var ChangeCustomerDataController = function ($scope, $modalInstance, customer, iteroJS) {
+    $scope.customer = customer;
+    $scope.proceed = function () {
+        iteroJS.changeCustomerData(customer,
+            function (data) {
+                debug.log("changeCustomerData returned", data);
+                $modalInstance.close('done');
+            }
+        );
+    }
+    $scope.cancel = function () { $modalInstance.dismiss('cancel'); }
+}
+
 var AccountController = function ($scope, $http, $modal) {
     var self = this;
 
@@ -117,6 +130,24 @@ var AccountController = function ($scope, $http, $modal) {
         });
     }
 
+    $scope.changeCustomerData = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'change-customer-data.html',
+            controller: ChangeCustomerDataController,
+            windowClass: "fade in",
+            resolve: {
+                customer: function () { return $scope.plan.Customer; },
+                iteroJS: function () { return self.iteroInstance; }
+            }
+        });
+
+        modalInstance.result.then(function (result) {
+            loadContract();
+        }, function () {
+            // TODO: Error Handling
+        });
+    }
+
     $scope.changePaymentMethod = function () {
         var iteroJSCPM = new IteroJS.ChangePaymentMethod(config, function () {
             var modalInstance = $modal.open({
@@ -127,7 +158,7 @@ var AccountController = function ($scope, $http, $modal) {
                     onClose: function () {
                         return function () { };
                     },
-                    iteroJS: function () { return iteroJSCPM; },
+                    //iteroJS: function () { return iteroJSCPM; },
                     token: function() { return config.token; }
                 }
             });
