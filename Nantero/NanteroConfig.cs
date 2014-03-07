@@ -7,11 +7,11 @@
         public static NanteroConfig Instance = new NanteroConfig
         {
             IteroBaseUrl = "http://itero.demo.pactas.com/api/v1/",
-            NanteroBaseUrl = "http://nantero.apphb.com/",
-            EntityId = "529f114351f459f55874f79b",
-            PrivateAppId = "52a9fe4151f4595d4c69149a",
-            PrivateAppSecret = "2b5b2d1b53d903d5a54fee92ed1072ed",
-            PlanVariantId = "529f20ed51f4591c2000e946"
+            NanteroBaseUrl = "http://nantero-1.apphb.com/",
+            EntityId = "5277bd65eb596a0ee8bd7832",
+            PrivateAppId = "5319acc61d8dd0095c100aed",
+            PrivateAppSecret = "ca84294f37f9e639e1b7b0551bb4f6cf",
+            PlanVariantId = "527caacdeb596a247c6e0500"
         };
 
         //public static NanteroConfig Instance = new NanteroConfig
